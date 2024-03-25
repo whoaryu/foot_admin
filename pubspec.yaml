@@ -12,6 +12,7 @@ dependencies:
   firebase_core: ^2.8.0
   cloud_firestore: ^4.4.5
   get: ^4.6.6
+  dropdown_button2: ^1.4.0
 
 dev_dependencies:
   flutter_test:

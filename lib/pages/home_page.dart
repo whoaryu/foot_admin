@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:foot_admin/pages/add_product.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -18,6 +20,12 @@ class HomePage extends StatelessWidget {
             ),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.to(AddProduct());
+        },
+        child: Icon(Icons.add),
       ),
     );
   }
