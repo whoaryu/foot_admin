@@ -1,8 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:foot_admin/controller/home_controller.dart';
+import 'package:foot_admin/firebase_options.dart';
 import 'package:foot_admin/pages/home_page.dart';
 import 'package:get/get.dart';
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: firebaseOptions);
+  //? registering my controller
+  Get.put(HomeController());
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
