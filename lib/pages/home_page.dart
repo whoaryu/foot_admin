@@ -12,15 +12,15 @@ class HomePage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(title: Text('Footware Admin')),
           body: ListView.builder(
-            itemCount: 10,
+            itemCount: ctrl.products.length,
             itemBuilder: (context, index) {
               return ListTile(
-                title: Text('hello'),
-                subtitle: Text('Price: 100'),
+                title: Text(ctrl.products[index].name ?? ''),
+                subtitle: Text((ctrl.products[index].price ?? 0).toString()),
                 trailing: IconButton(
                   icon: Icon(Icons.delete),
                   onPressed: () {
-                    print('delete');
+                    ctrl.deleteProduct(ctrl.products[index].id ?? '');
                     //ctrl.testMethod();
                   },
                 ),

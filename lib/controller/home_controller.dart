@@ -22,8 +22,9 @@ class HomeController extends GetxController {
   List<Product> products = [];
 
   @override
-  void onInit() {
+  void onInit() async {
     productCollection = firestore.collection('product');
+    await fetchProducts();
     super.onInit();
   }
 
@@ -52,10 +53,31 @@ class HomeController extends GetxController {
   }
 
   fetchProducts() async {
-    QuerySnapshot productSnapshot = await productCollection.get();
-    final List<Product> retrievedProducts = productSnapshot.docs
-        .map((doc) => Product.fromJson(doc.data() as Map<String, dynamic>))
-        .toList();
+    try {
+      QuerySnapshot productSnapshot = await productCollection.get();
+      final List<Product> retrievedProducts = productSnapshot.docs
+          .map((doc) => Product.fromJson(doc.data() as Map<String, dynamic>))
+          .toList();
+      products.clear();
+      products.assignAll(retrievedProducts);
+      Get.snackbar('Successful', 'Adding Products Successfully',
+          colorText: Colors.green);
+    } on Exception catch (e) {
+      Get.snackbar('Error', e.toString(), colorText: Colors.red);
+      print(e);
+    } finally {
+      update();
+    }
+  }
+
+  deleteProduct(String id) async {
+    try {
+      await productCollection.doc(id).delete();
+      fetchProducts();
+    } on Exception catch (e) {
+      Get.snackbar('Error', e.toString(), colorText: Colors.red);
+      print(e);
+    }
   }
 
   setValuesDefault() {
